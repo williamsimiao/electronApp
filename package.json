@@ -2,21 +2,25 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
+  "author": "William",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/dinamo.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . DinamoClient --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"DinamoClient\"",
+    "package-linux": "electron-packager . DinamoClient --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/dinamo.png --prune=true --out=release-builds"
   },
   "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^7.1.9"
+    "electron": "^7.1.9",
+    "electron-builder": "^22.2.0",
+    "electron-packager": "^14.2.0"
+  },
+  "build": {
+    "appId": "DinamoClient",
+    "win": {}
   }
 }
