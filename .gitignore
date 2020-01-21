@@ -1,1 +1,5 @@
 node_modules
+# used by electron-builder
+dist
+# used by electron-packager
+release-builds

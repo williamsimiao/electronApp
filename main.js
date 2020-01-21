@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
+const jetpack = require('fs-jetpack');
 const path = require('path')
 
 // process.env.NODE_ENV = 'development'
@@ -48,9 +49,17 @@ const mainMenuTemplate =  [
       {
         label:'Set Env var',
         click(){
-          console.log(process.env.HOME)
           process.env.MY_ENV_VAR = 'teste'
           console.log(process.env.MY_ENV_VAR)
+        }
+      },
+      {
+        label: 'Create file at home dir',
+        click(){
+          const homeDir = app.getPath('home')
+          const dest = jetpack.dir(homeDir);
+          const obj = { greet: "Hello World!" }
+          dest.write('file.json', obj)
         }
       },
       {
@@ -59,7 +68,6 @@ const mainMenuTemplate =  [
           dialog.showOpenDialog({
             properties: ['openFile', 'openDirectory']
           }, (files) => {
-            console.log('HI')
             if (files) {
               console.log(files)
               document.getElementById('selected-dir').innerHTML = `You selected: ${files}`
